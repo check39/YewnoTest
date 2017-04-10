@@ -19,6 +19,7 @@ class WordSimilarityWithG2Test(sc:SparkContext, path: String) {
 
   def buildFromBlogs(): Unit ={
     termsToDocs = parseBlogs()
+    termsToDocs.cache()
     totalPosts = getAllPostsWithWord("##ALL##").size
   }
 
@@ -80,7 +81,6 @@ class WordSimilarityWithG2Test(sc:SparkContext, path: String) {
 
   def findSimilarity(x: String, y:String): Unit = {
     //Since there would be only one value for key, take first value from lookup
-    val totalPosts = 100
     val xPosts = getAllPostsWithWord(x)
     val yPosts = getAllPostsWithWord(y)
 
